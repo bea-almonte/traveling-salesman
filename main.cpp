@@ -10,7 +10,8 @@ int main() {
     //run1.PrintMatrix();
     run1.CalcDistance();
     run1.PrintCurrPath();
-    std::cout << "Best: " << run1.bestDistance << std::endl;
+    
     run1.CreatePermutations(120);
+    std::cout << "Best: " << run1.bestDistance << std::endl;
     return 0;
 }

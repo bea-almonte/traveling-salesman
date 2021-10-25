@@ -13,7 +13,7 @@ private:
     int citiesToRun;
     
     std::vector<double>currPath;
-    
+    void SetBestDistance(double currDistance);
     
 public:
     BruteForce();
