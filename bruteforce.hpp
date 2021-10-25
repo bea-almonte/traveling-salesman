@@ -9,11 +9,12 @@
 
 class BruteForce {
 private:
-    double distances[20][20];
     int citiesToRun;
 public:
     BruteForce();
-    void GenerateMatrix(std::string distancesFile); // generate adjacency matrix
+    void PrintMatrix();
+
+    double distances[20][20];
 };
 
 #endif
