@@ -12,18 +12,18 @@ class BruteForce {
 private:
     int citiesToRun;
     
-    std::vector<double>currPath;
+    std::vector<int>currPath;
     void SetBestDistance(double currDistance);
-    
+    std::vector<int>bestPath;
 public:
     BruteForce();
     void PrintMatrix();
     void FindBestPath();
     double CalcDistance();
-    void PrintCurrPath();
+    void PrintBest();
     double bestDistance;
     double distances[20][20];
-    void CreatePermutations(int permsThisCall);
+    void CreatePermutations(long permsThisCall);
 };
 
 #endif
