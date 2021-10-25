@@ -11,5 +11,6 @@ int main() {
     run1.CalcDistance();
     run1.PrintCurrPath();
     std::cout << "Best: " << run1.bestDistance << std::endl;
+    run1.CreatePermutations(120);
     return 0;
 }

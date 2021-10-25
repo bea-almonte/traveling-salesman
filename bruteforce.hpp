@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 #ifndef BRUTEFORCE_HPP
 #define BRUTEFORCE_HPP
@@ -13,15 +14,16 @@ private:
     
     std::vector<double>currPath;
     
-    void CreatePermutations(int permsThisCall);
+    
 public:
     BruteForce();
     void PrintMatrix();
     void FindBestPath();
-    void CalcDistance();
+    double CalcDistance();
     void PrintCurrPath();
     double bestDistance;
     double distances[20][20];
+    void CreatePermutations(int permsThisCall);
 };
 
 #endif
