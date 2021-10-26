@@ -10,22 +10,23 @@ BruteForce::BruteForce() {
         }
     }
 
-    DistanceMatrix matrix1;
-    matrix1.GenerateMatrix("distances.txt");
-    matrix1.SetMatrix(distances);
+    //PrintPath(currPath);
+}
 
-    citiesToRun = 0;
-    std::cin >> citiesToRun;
+void BruteForce::RunBruteForce(int totalCities) {
+    // reset cities
+    citiesToRun = totalCities;
+    // resize cities to permutate
     currPath.resize(--citiesToRun);
 
-    std::cout << citiesToRun << std::endl;
+    // initialize first path
     for (int i = 0; i < citiesToRun; i++) {
         currPath.at(i) = i+1; 
     }
+    // set best path to compare later
 	bestPath = currPath;
 
     CreatePermutations(citiesToRun);
-    //PrintPath(currPath);
 }
 
 void BruteForce::PrintMatrix() {
@@ -40,6 +41,7 @@ void BruteForce::PrintMatrix() {
 double BruteForce::CalcDistance(std::vector<int>&inputPath) {
     double totalSum = 0;
 	int i = 0;
+    
     if (i+1 < citiesToRun) {
         totalSum += distances[0][inputPath.at(1)];
     }
@@ -47,7 +49,9 @@ double BruteForce::CalcDistance(std::vector<int>&inputPath) {
     for (i = 0;i < citiesToRun-1; i++) {
         totalSum += distances[inputPath.at(i)][inputPath.at(i+1)];
     }
+
 	totalSum += distances[inputPath.at(i)][0];
+
 	return totalSum;
 }
 

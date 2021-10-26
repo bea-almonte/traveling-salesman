@@ -18,6 +18,7 @@ private:
     long GetFactorial(int num); // gets a factorial of some number
 public:
     BruteForce();
+    void RunBruteForce(int totalCities);
     void PrintMatrix();
     void FindBestPath();
     double CalcDistance(std::vector<int>&inputPath);
