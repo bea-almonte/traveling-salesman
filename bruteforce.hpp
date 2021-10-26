@@ -15,11 +15,13 @@ private:
     std::vector<int>currPath;
     void SetBestDistance(double currDistance);
     std::vector<int>bestPath;
+    long GetFactorial(int num); // gets a factorial of some number
 public:
     BruteForce();
     void PrintMatrix();
     void FindBestPath();
-    double CalcDistance();
+    double CalcDistance(std::vector<int>&inputPath);
+    void PrintPath(std::vector<int>&inputPath);
     void PrintBest();
     double bestDistance;
     double distances[20][20];

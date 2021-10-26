@@ -1,5 +1,6 @@
 // implements functions for brute force algorithm
 #include "bruteforce.hpp"
+#include "distancematrix.hpp"
 
 BruteForce::BruteForce() {
     // initialize distances to 0
@@ -8,13 +9,23 @@ BruteForce::BruteForce() {
             distances[i][j] = 0;
         }
     }
-    citiesToRun = 5;
-    currPath.resize(citiesToRun);
-	bestPath.resize(citiesToRun);
+
+    DistanceMatrix matrix1;
+    matrix1.GenerateMatrix("distances.txt");
+    matrix1.SetMatrix(distances);
+
+    citiesToRun = 0;
+    std::cin >> citiesToRun;
+    currPath.resize(--citiesToRun);
+
+    std::cout << citiesToRun << std::endl;
     for (int i = 0; i < citiesToRun; i++) {
-        currPath.at(i) = i;
+        currPath.at(i) = i+1; 
     }
-	bestDistance = 0;
+	bestPath = currPath;
+
+    CreatePermutations(citiesToRun);
+    //PrintPath(currPath);
 }
 
 void BruteForce::PrintMatrix() {
@@ -26,13 +37,17 @@ void BruteForce::PrintMatrix() {
     }
 }
 
-double BruteForce::CalcDistance() {
+double BruteForce::CalcDistance(std::vector<int>&inputPath) {
     double totalSum = 0;
 	int i = 0;
-    for (i = 0;i < citiesToRun-1; i++) {
-        totalSum += distances[currPath.at(i)][currPath.at(i+1)];
+    if (i+1 < citiesToRun) {
+        totalSum += distances[0][inputPath.at(1)];
     }
-	totalSum += distances[currPath.at(i)][currPath.at(0)];
+    
+    for (i = 0;i < citiesToRun-1; i++) {
+        totalSum += distances[inputPath.at(i)][inputPath.at(i+1)];
+    }
+	totalSum += distances[inputPath.at(i)][0];
 	return totalSum;
 }
 
@@ -44,17 +59,23 @@ void BruteForce::SetBestDistance(double currDistance) {
 	}
 }
 
-void BruteForce::PrintBest() {
+void BruteForce::PrintPath(std::vector<int>&inputPath) {
+    std::cout << "0 ";
     for (int i = 0;i < citiesToRun; i++) {
-        std::cout << bestPath.at(i) << " ";
+        std::cout << inputPath.at(i) << " ";
     }
-    std::cout << bestPath.at(0) << std::endl;
-	std::cout << "Best: " << bestDistance << std::endl;
+    std::cout << 0 << std::endl;
+	std::cout << "Cost: " << CalcDistance(inputPath) << std::endl;
 }
 
 void BruteForce::CreatePermutations(long permsThisCall) {
     int m, k, p , q, i;
-	bestDistance = CalcDistance();
+ 
+	bestDistance = CalcDistance(currPath);
+    
+    permsThisCall = GetFactorial(permsThisCall);
+    
+    //PrintPath(bestPath);
     //PrintCurrPath();
     for(i = 1; i < permsThisCall; i++) {
     	m = citiesToRun-2;
@@ -75,7 +96,15 @@ void BruteForce::CreatePermutations(long permsThisCall) {
          	p++;
         	q--;
        	}
-		SetBestDistance(CalcDistance());
-       	//PrintCurrPath();
+		SetBestDistance(CalcDistance(currPath));
+       	//PrintPath(currPath);
      }
-} 
+}
+
+long BruteForce::GetFactorial(int num) {
+    return (num==1 || num == 0) ? 1 : GetFactorial(num-1) * num;
+}
+
+void BruteForce::PrintBest() {
+    PrintPath(bestPath);
+}
